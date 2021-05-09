@@ -52,6 +52,47 @@ const btoa = require('btoa');
     return response
   }
 
+   async function getRefreshToken(token) {
+    const instance = axios.create({
+      baseURL: config.yahoo.auth_url,
+      timeout: 1000,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+
+    let bodyData = qs.stringify({
+      grant_type: 'refresh_token',
+      redirect_uri: 'https://127.0.0.1:4000/authRedirect',
+      refresh_token: token
+    })
+
+    const basicAuth = 'Basic ' + btoa(`${config.yahoo.app_key}:${config.yahoo.app_secret}`);
+
+
+    const response = await instance.post('get_token', bodyData, {
+      auth: {
+        username: config.yahoo.app_key,
+        password: config.yahoo.app_secret
+      }
+    });
+
+    return response
+  }
+
+  async function yahooFSResource(resource, resourceKey) {
+    // https://fantasysports.yahooapis.com/fantasy/v2/{resource}/{resource_key}
+    const response = await axios.get(`${config.yfSports.baseApiUrl}${resource}/${resourceKey}` );
+    console.log(response)
+  }
+
+  async function yahooFSCollection(collection, resource, resourceKeys) {
+    // https://fantasysports.yahooapis.com/fantasy/v2/{collection};{resource}
+    const response = await axios.get(`${config.yfSports.baseApiUrl}${collection};${resource}_keys=${resourceKeys}` );
+    console.log(response)
+  }
+
+
 module.exports = {
   api: api,
   getAccessToken: getAccessToken

@@ -6,5 +6,8 @@
     "auth_url" : "https://api.login.yahoo.com/oauth2/",
     "redirect_uri": "https://127.0.0.1:4000/authRedirect",
     "access_token_endpoint" : ""
+  },
+  "yfSports": {
+    "baseApiUrl" : "https://fantasysports.yahooapis.com/fantasy/v2/"
   }
 }

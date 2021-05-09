@@ -28,9 +28,8 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 
-function refreshToken(paramA, paramB){
-  console.log('loggin the refresh token: ')
-  console.log(paramB);
+const refreshToken = () => {
+
 }
 
 const YahooFantasy = require('yahoo-fantasy');
@@ -40,7 +39,43 @@ const yf = new YahooFantasy(
   config.yahoo.app_secret,
   refreshToken,
   'https://127.0.0.1:4000/authRedirect/'
+
 )
+
+
+app.use(async function (req, res, next) {
+  let cookie = new Cookies(req, res, {keys: cookieKeys});
+  let authUser = cookie.get('authenticatedUser', { signed: false });
+
+  if(req.path === '/authRedirect') {
+    
+    const authToken = req.query.code;
+    const response = await data.getAccessToken(authToken);
+
+    const accessObject = transferCredentials(response.data);
+
+    cookie.set('authenticatedUser', accessObject, { signed: false });
+    const destination = cookie.get('destination_url', { signed: false });
+    res.redirect(destination);
+  }
+
+  if(!authUser) {
+    const url = `${config.yahoo.auth_url}request_auth?client_id=${config.yahoo.app_key}&redirect_uri=${config.yahoo.redirect_uri}&response_type=code`;
+    cookie.set('destination_url', req.url, { signed: false });
+    
+    res.redirect(url);
+
+  } else {
+    if(authUser.expires_in <= (new Date())){
+      const response = await data.getRefreshToken(authUser.refresh_token);
+      const accessObject = transferCredentials(response.data);
+      cookie.set('authenticatedUser', accessObject, { signed: false });
+      authUser = cookie.get('authenticatedUser', { signed: false });
+    }
+  }
+  res.locals.yahooCredentials = authUser;
+  next();
+});
 
 
 
@@ -60,17 +95,7 @@ app.get('/', (req, res) => {
   res.render('index.html' );
 });
 
-app.get('/authYahooUser', (req, res) => {
-  yf.auth(res);
-})
 
-app.get('/authRedirect', (req, res) => {
-  yf.authCallback(
-    req, refreshToken
-  )
-  data.yahooFSResource()
-  yf.league.
-})
 
 
 app.get('/:pageName', (req, res) => {
