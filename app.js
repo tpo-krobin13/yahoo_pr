@@ -31,8 +31,8 @@ app.engine('html', require('ejs').renderFile);
 
 
 function refreshToken(paramA, paramB){
-  console.log('loggin the refresh token: ')
-  console.log(paramB);
+  console.log('logging the refresh token call: ')
+//  console.log(paramB);
 }
 
 const YahooFantasy = require('yahoo-fantasy');
@@ -41,7 +41,7 @@ const yf = new YahooFantasy(
   config.yahoo.app_key,
   config.yahoo.app_secret,
   refreshToken,
-  `https://127.0.0.1:${cfg.sslPort}/authRedirect/`
+  `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedirectRoute}`
 )
 
 
@@ -70,7 +70,6 @@ app.get('/authRedirect', (req, res) => {
   yf.authCallback(
     req, refreshToken
   )
-  console.log(yf);
   res.redirect('/');
   res.end();
 })

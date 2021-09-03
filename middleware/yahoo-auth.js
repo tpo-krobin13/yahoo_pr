@@ -14,5 +14,5 @@ exports.checkOAuth = async (req,res, next) =>  {
     // if they are authenticated validate teh token is still valid
   }
 
-});
+};
 Cookies.getJSON('authenticatedUser') 

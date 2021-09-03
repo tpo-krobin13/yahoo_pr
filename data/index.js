@@ -5,7 +5,7 @@ const btoa = require('btoa');
 const cfg = require('../config/');
 
 
-
+const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedirectRoute}`
 
    function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = config.apiBaseUrl + path;
@@ -37,7 +37,7 @@ const cfg = require('../config/');
 
     let bodyData = qs.stringify({
       grant_type: 'authorization_code',
-      redirect_uri: `https://127.0.0.1:${cfg.sslPort}/authRedirect`,
+      redirect_uri: `${yahooLocalRedirect}`,
       code: code
     })
 
@@ -65,7 +65,7 @@ const cfg = require('../config/');
 
     let bodyData = qs.stringify({
       grant_type: 'refresh_token',
-      redirect_uri: `https://127.0.0.1:${cfg.sslPort}/authRedirect`,
+      redirect_uri: `${yahooLocalRedirect}`,
       refresh_token: token
     })
 

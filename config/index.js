@@ -5,6 +5,8 @@ const result = dotenv.config();
 module.exports = {
   port: process.env.PORT,
   sslPort: process.env.SSL_PORT,
+  domain: process.env.DOMAIN,
+  yahooRedirectRoute: process.env.YREDIRECT_BASE_PAGE,
 
 
   hostUrl: process.env.HOST_URL,
