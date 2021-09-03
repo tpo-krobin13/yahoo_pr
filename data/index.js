@@ -2,6 +2,8 @@ const config = require('../config');
 const axios = require('axios');
 const qs = require('qs');
 const btoa = require('btoa');
+const cfg = require('../config/');
+
 
 
 
@@ -35,7 +37,7 @@ const btoa = require('btoa');
 
     let bodyData = qs.stringify({
       grant_type: 'authorization_code',
-      redirect_uri: 'https://127.0.0.1:4000/authRedirect',
+      redirect_uri: `https://127.0.0.1:${cfg.sslPort}/authRedirect`,
       code: code
     })
 
@@ -63,7 +65,7 @@ const btoa = require('btoa');
 
     let bodyData = qs.stringify({
       grant_type: 'refresh_token',
-      redirect_uri: 'https://127.0.0.1:4000/authRedirect',
+      redirect_uri: `https://127.0.0.1:${cfg.sslPort}/authRedirect`,
       refresh_token: token
     })
 

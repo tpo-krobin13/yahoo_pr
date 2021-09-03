@@ -6,7 +6,7 @@ var Cookies = require('cookies');
 var dt = require('date-and-time');
 var cookieKeys = ['bfl fo life'];
 const path = require('path');
-const serverConfig = require('./config/');
+const cfg = require('./config/');
 
 const httpsOptions = {
   key: fs.readFileSync(path.join(process.cwd(), './key.pem')),
@@ -36,11 +36,12 @@ function refreshToken(paramA, paramB){
 }
 
 const YahooFantasy = require('yahoo-fantasy');
+
 const yf = new YahooFantasy(
   config.yahoo.app_key,
   config.yahoo.app_secret,
   refreshToken,
-  `https://127.0.0.1:${serverConfig.httpsPort}/authRedirect/`
+  `https://127.0.0.1:${cfg.sslPort}/authRedirect/`
 )
 
 
@@ -104,20 +105,13 @@ app.use('*',(req, res, next) => {
       }
   })
 
-var httpServer = http.createServer(app);
 
-const httpPort = serverConfig.httpPort;
-const httpsPort = serverConfig.httpsPort;
 
-httpServer.listen(httpPort, () => {
-    console.log(`The http server is running on port: ${httpPort}`);
+http.createServer(app).listen(cfg.port, () => {
+    console.log(`The http server is running on port: ${cfg.port}`);
 });
 
-https.createServer(httpsOptions, app).listen(httpsPort, () => {
-    console.log(`The https server is running on port: ${httpsPort}`);
+https.createServer(httpsOptions, app).listen(cfg.sslPort, () => {
+    console.log(`The https server is running on port: ${cfg.sslPort}`);
 });
-
-
-
-
 
