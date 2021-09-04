@@ -22,6 +22,7 @@
     "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "chai": "^4.3.4",
+    "chai-fs": "^2.0.0",
     "cookie-parser": "^1.4.5",
     "cookies": "^0.8.0",
     "date-and-time": "^1.0.0",
@@ -34,6 +35,7 @@
     "yahoo-fantasy": "^4.1.3"
   },
   "devDependencies": {
+    "chai-http": "^4.3.0",
     "chai-string": "^1.5.0",
     "mocha": "^8.4.0",
     "procmonrest": "^1.3.0",

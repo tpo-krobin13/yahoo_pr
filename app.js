@@ -9,15 +9,14 @@ const path = require('path');
 const cfg = require('./config/');
 
 const httpsOptions = {
-  key: fs.readFileSync(path.join(process.cwd(), './key.pem')),
-  cert: fs.readFileSync(path.join(process.cwd(), './cert.pem'))
+  key: fs.readFileSync(path.join(process.cwd(), cfg.sslKey)),
+  cert: fs.readFileSync(path.join(process.cwd(), cfg.sslCert))
 }
 
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const config = require('./config');
 
 const app = express();
 
@@ -38,8 +37,8 @@ function refreshToken(paramA, paramB){
 const YahooFantasy = require('yahoo-fantasy');
 
 const yf = new YahooFantasy(
-  config.yahoo.app_key,
-  config.yahoo.app_secret,
+  cfg.yahooAppKey,
+  cfg.yahooAppSecret,
   refreshToken,
   `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedirectRoute}`
 )
@@ -114,3 +113,4 @@ https.createServer(httpsOptions, app).listen(cfg.sslPort, () => {
     console.log(`The https server is running on port: ${cfg.sslPort}`);
 });
 
+exports.app = app;

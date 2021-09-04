@@ -7,11 +7,10 @@ module.exports = {
   sslPort: process.env.SSL_PORT,
   domain: process.env.DOMAIN,
   yahooRedirectRoute: process.env.YREDIRECT_BASE_PAGE,
-
-
-  hostUrl: process.env.HOST_URL,
-  yahooRedirectUrl: process.env.YREDIRECT_BASE_URL + ":" + process.env.HOST_HTTPS_PORT +"/" + process.env.YREDIRECT_BASE_PAGE,
+  sslKey: process.env.SSL_KEY,
+  sslCert: process.env.SSL_CERT,
+  yahooAuthUrl: process.env.YAUTH_URL,
   yahooAppSecret: process.env.YAPPLICATION_SECRET,
   yahooAppKey: process.env.YAPPLICATION_KEY,
-  yahooAppCallbackFunction: process.env.YTOKEN_CALLBACK_FUNCTION
+  yahooApiUrl: process.env.YBASE_SPORTS_API
 };

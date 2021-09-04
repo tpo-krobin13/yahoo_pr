@@ -1,14 +1,16 @@
-const config = require('../config');
 const axios = require('axios');
 const qs = require('qs');
 const btoa = require('btoa');
 const cfg = require('../config/');
 
-
+const yahoooAuthUrl = cfg.yahooAuthUrl;
 const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedirectRoute}`
+const yahooAppKey = cfg.yahooAppKey;
+const yahooAppSecret = cfg.yahooAppSecret;
+const yahooApiUrl = cfg.yahooApiUrl;
 
    function api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
-    const url = config.apiBaseUrl + path;
+    const url = yahooApiUrl + path;
     const options = {
       method,
       headers: {
@@ -19,7 +21,7 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
       options.body = JSON.stringify(body);
     }
     if(requiresAuth) {
-      const encodedCredentials = btoa(`${config.yahoo.app_key}:${config.yahoo.app_secret}`);
+      const encodedCredentials = btoa(`${yahooAppKey}:${yahooAppSecret}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
@@ -28,7 +30,7 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
 
    async function getAccessToken(code) {
     const instance = axios.create({
-      baseURL: config.yahoo.auth_url,
+      baseURL: yahoooAuthUrl,
       timeout: 1000,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -37,17 +39,17 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
 
     let bodyData = qs.stringify({
       grant_type: 'authorization_code',
-      redirect_uri: `${yahooLocalRedirect}`,
+      redirect_uri: yahooLocalRedirect,
       code: code
     })
 
-    const basicAuth = 'Basic ' + btoa(`${config.yahoo.app_key}:${config.yahoo.app_secret}`);
+    const basicAuth = 'Basic ' + btoa(`${yahooAppKey}:${yahooAppSecret}`);
 
 
     const response = await instance.post('get_token', bodyData, {
       auth: {
-        username: config.yahoo.app_key,
-        password: config.yahoo.app_secret
+        username: yahooAppKey,
+        password: yahooAppSecret
       }
     });
 
@@ -56,7 +58,7 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
 
    async function getRefreshToken(token) {
     const instance = axios.create({
-      baseURL: config.yahoo.auth_url,
+      baseURL: yahoooAuthUrl,
       timeout: 1000,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -69,13 +71,13 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
       refresh_token: token
     })
 
-    const basicAuth = 'Basic ' + btoa(`${config.yahoo.app_key}:${config.yahoo.app_secret}`);
+    const basicAuth = 'Basic ' + btoa(`${yahooAppKey}:${yahooAppSecret}`);
 
 
     const response = await instance.post('get_token', bodyData, {
       auth: {
-        username: config.yahoo.app_key,
-        password: config.yahoo.app_secret
+        username: yahooAppKey,
+        password: yahooAppSecret
       }
     });
 
@@ -84,13 +86,13 @@ const yahooLocalRedirect = `https://${cfg.domain}:${cfg.sslPort}/${cfg.yahooRedi
 
   async function yahooFSResource(resource, resourceKey) {
     // https://fantasysports.yahooapis.com/fantasy/v2/{resource}/{resource_key}
-    const response = await axios.get(`${config.yfSports.baseApiUrl}${resource}/${resourceKey}` );
+    const response = await axios.get(`${yahooApiUrl}${resource}/${resourceKey}` );
     console.log(response)
   }
 
   async function yahooFSCollection(collection, resource, resourceKeys) {
     // https://fantasysports.yahooapis.com/fantasy/v2/{collection};{resource}
-    const response = await axios.get(`${config.yfSports.baseApiUrl}${collection};${resource}_keys=${resourceKeys}` );
+    const response = await axios.get(`${yahooApiUrl}${collection};${resource}_keys=${resourceKeys}` );
     console.log(response)
   }
 
