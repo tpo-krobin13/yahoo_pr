@@ -32,8 +32,10 @@ app.engine('html', require('ejs').renderFile);
 
 
 function refreshToken(paramA, paramB){
-  console.log('logging the refresh token call: ')
-//  console.log(paramB);
+  console.log('refresh token');
+  console.log('----------------------------------------------------\n');
+  console.log(paramB);
+  console.log('----------------------------------------------------\n');
 }
 
 const YahooFantasy = require('yahoo-fantasy');
