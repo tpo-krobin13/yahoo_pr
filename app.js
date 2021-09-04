@@ -23,7 +23,9 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use('/static',express.static('public'));
+app.use(express.static('public'))
+//TODO refactor this file to serve from the styles folder
+app.use("/style.css", express.static('/public/css/style.css')) 
 app.set('view engine', 'ejs');
 
 app.engine('html', require('ejs').renderFile);
