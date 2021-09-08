@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "9b4e9df9-4397-4045-8e70-ba41c6493a6c",
+		"name": "OAuth2.0 Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Game.meta-Get Game information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/game/nfl",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"game",
+						"nfl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "League.meta-Basic League Information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/league/406.l.32670/metadata",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"league",
+						"406.l.32670",
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "League.standings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/league/406.l.32670/standings",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"league",
+						"406.l.32670",
+						"standings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "League.team list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/league/406.l.32670/teams",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"league",
+						"406.l.32670",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "League.nfl player list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/league/406.l.32670/players",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"league",
+						"406.l.32670",
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player.list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/player/406.p.5228/metadata",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"player",
+						"406.p.5228",
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Roster.list team players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/team/406.l.32670.t.1/roster",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"team",
+						"406.l.32670.t.1",
+						"roster"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PlayerStats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/player/406.p.5228/stats",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"player",
+						"406.p.5228",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Team.matchups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fantasysports.yahooapis.com/fantasy/v2/team/406.l.32670.t.1/matchups;weeks=1",
+					"protocol": "https",
+					"host": [
+						"fantasysports",
+						"yahooapis",
+						"com"
+					],
+					"path": [
+						"fantasy",
+						"v2",
+						"team",
+						"406.l.32670.t.1",
+						"matchups;weeks=1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessTokenUrl",
+				"value": "https://api.login.yahoo.com/oauth2/get_token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://127.0.0.1:4000/authYahooUser",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "fspt-w",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "XXXXADD-YOUR-YAHOO-SECRETXXXXX",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "XXXXX-ADD-YOUR-YAHOO-CLIENTID",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://127.0.0.1:4000/authRedirect",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "newToken",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

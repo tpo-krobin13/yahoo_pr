@@ -32,10 +32,12 @@ app.engine('html', require('ejs').renderFile);
 
 
 function refreshToken(paramA, paramB){
-  console.log('refresh token');
-  console.log('----------------------------------------------------\n');
-  console.log(paramB);
-  console.log('----------------------------------------------------\n');
+  if(paramB){
+    console.log('refresh token');
+    console.log('----------------------------------------------------\n');
+    console.log(paramB);
+    console.log('----------------------------------------------------\n');
+  }
 }
 
 const YahooFantasy = require('yahoo-fantasy');
@@ -61,7 +63,13 @@ function transferCredentials(responseObj){
 
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  try {
+    const meta = await yf.game.meta(game_key);
+    console.log('Game meta: ' + JSON.stringify(meta));
+  } catch (e) {
+    // handle error
+  }
   res.render('index.html' );
 });
 
@@ -69,6 +77,7 @@ app.get('/authYahooUser', (req, res) => {
   yf.auth(res);
 })
 
+// yahoo will redirect the user to the local page once all authorization is completed
 app.get('/authRedirect', (req, res) => {
   yf.authCallback(
     req, refreshToken
@@ -100,11 +109,12 @@ app.use('*',(req, res, next) => {
 //      console.error(req.url);
 //      console.dir(err);
       if (err.status == 404) {
-        res.render('page-not-found');
+        res.render('page-not-found.html');
       } else {
         err.status = 500;
         res.json(err);
       }
+      res.end();
   })
 
 
