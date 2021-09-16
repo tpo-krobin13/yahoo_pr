@@ -41,9 +41,21 @@ describe("an end-to-end test", function () {
 
   });
 
-  describe("Yahoo player search", function () {
+  describe("Yahoo app loads", function () {
     const serverUrl = `http://${cfg.domain}:${cfg.port}` ;
     it("default url responds", async function () {
+      //given 
+      const actual = (await axios.get(serverUrl)).status;
+
+      //when 
+      const expected = 200;
+      //then
+      expect(actual).to.equal(expected);
+    });
+  });
+  describe("Yahoo leagues", function () {
+    const serverUrl = `http://${cfg.domain}:${cfg.port}` ;
+    xit("should all be listed", async function () {
       //given 
       const actual = (await axios.get(serverUrl)).status;
 
