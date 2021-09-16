@@ -32,7 +32,6 @@
     "enhanced-resolve": "^5.8.2",
     "express": "^4.17.1",
     "find-config": "^1.0.0",
-    "nodemon": "^2.0.12",
     "qs": "^6.7.0",
     "webdriverio": "^7.12.2",
     "yahoo-fantasy": "^4.1.3"

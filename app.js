@@ -66,11 +66,13 @@ function transferCredentials(responseObj){
 app.get('/', async (req, res) => {
   try {
     const meta = await yf.game.meta(cfg.yahooGameKey);
-    console.log('Game meta: ' + JSON.stringify(meta));
+    
+    res.render('index.html' );
   } catch (e) {
     console.log(e);
+    res.render('500.html' );
   }
-  res.render('index.html' );
+  res.end();
 });
 
 app.get('/authYahooUser', (req, res) => {
