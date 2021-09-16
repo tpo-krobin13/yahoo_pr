@@ -109,10 +109,10 @@ app.use('*',(req, res, next) => {
 //      console.error(req.url);
 //      console.dir(err);
       if (err.status == 404) {
-        res.render('page-not-found.html');
+        res.render('404.html');
       } else {
         err.status = 500;
-        res.json(err);
+        res.render('500.html');
       }
       res.end();
   })
