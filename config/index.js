@@ -12,5 +12,7 @@ module.exports = {
   yahooAuthUrl: process.env.YAUTH_URL,
   yahooAppSecret: process.env.YAPPLICATION_SECRET,
   yahooAppKey: process.env.YAPPLICATION_KEY,
-  yahooApiUrl: process.env.YBASE_SPORTS_API
+  yahooApiUrl: process.env.YBASE_SPORTS_API,
+  yahooGameKey: process.env.YGAME_KEY,
+  yahooLeagueKey: process.env.YLEAGUE_KEY
 };

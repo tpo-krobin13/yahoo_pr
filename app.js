@@ -65,10 +65,10 @@ function transferCredentials(responseObj){
 
 app.get('/', async (req, res) => {
   try {
-    const meta = await yf.game.meta(game_key);
+    const meta = await yf.game.meta(cfg.yahooGameKey);
     console.log('Game meta: ' + JSON.stringify(meta));
   } catch (e) {
-    // handle error
+    console.log(e);
   }
   res.render('index.html' );
 });
