@@ -1,0 +1,19 @@
+There are three additional configuration files needed to run the application
+
+.env file - Stores application variables -
+PORT=
+SSL_PORT=
+DOMAIN=127.0.0.1
+#Yahoo specific varibles
+YREDIRECT_BASE_PAGE=authRedirect/
+SSL_KEY=location-of-key.pem
+SSL_CERT=location-of-cert.pem
+YAUTH_URL=https://api.login.yahoo.com/oauth2/
+YBASE_SPORTS_API=https://fantasysports.yahooapis.com/fantasy/v2/
+YAPPLICATION_KEY=ADD-YOUR-YAHOO-KEY-SECRET
+YAPPLICATION_SECRET=ADD-YOUR-YAHOO-APP-SECRET
+YGAME_KEY=SPECIFIC-YAHOO-GAME-NUMBER
+YLEAGUE_KEY=SPECIFIC-YAHOO-LEAGUE-NUMBER
+
+
+You will also need to generate an ssl key and cert file for to run https on your local node server
