@@ -53,9 +53,9 @@ describe("an end-to-end test", function () {
       expect(actual).to.equal(expected);
     });
   });
-  describe("Yahoo leagues", function () {
+  describe("home page", async function () {
     const serverUrl = `http://${cfg.domain}:${cfg.port}` ;
-    xit("should all be listed", async function () {
+    xit("should list log in options", async function () {
       //given 
       const actual = (await axios.get(serverUrl)).status;
 
