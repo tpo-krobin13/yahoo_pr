@@ -4,7 +4,7 @@ var https = require ('https');
 const data = require('./data');
 var Cookies = require('cookies');
 var dt = require('date-and-time');
-var cookieKeys = ['bfl fo life'];
+var cookieKeys = ['bflFoLife'];
 const path = require('path');
 const cfg = require('./config/');
 
