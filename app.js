@@ -2,9 +2,11 @@ var fs = require('fs');
 var http = require('http');
 var https = require ('https');
 const data = require('./data');
-var Cookies = require('cookies');
+var Cookies = require('cookies');  
+let cookieKeys = ['BFL Fo Life'];
+
+
 var dt = require('date-and-time');
-var cookieKeys = ['bflFoLife'];
 const path = require('path');
 const cfg = require('./config/');
 
@@ -32,12 +34,7 @@ app.engine('html', require('ejs').renderFile);
 
 
 function refreshToken(paramA, paramB){
-  if(paramB){
-    console.log('refresh token');
-    console.log('----------------------------------------------------\n');
-    console.log(paramB);
-    console.log('----------------------------------------------------\n');
-  }
+
 }
 
 const YahooFantasy = require('yahoo-fantasy');
@@ -65,9 +62,18 @@ function transferCredentials(responseObj){
 
 app.get('/', async (req, res) => {
   try {
-    const meta = await yf.game.meta(cfg.yahooGameKey);
+    var cookies = new Cookies(req, res, { keys: cookieKeys })
+    var token = cookies.get('refreshToken', { signed: true })
+    if(token){
+      console.log('token is true');
+      console.log('token:' + token);
+    } else {
+      console.log('token:' + token);
+      console.log('token is false');
+    }
+    res.render('returning.html' );
+
     
-    res.render('index.html' );
   } catch (e) {
     console.log(e);
     res.render('500.html' );
@@ -81,10 +87,12 @@ app.get('/authYahooUser', (req, res) => {
 
 // yahoo will redirect the user to the local page once all authorization is completed
 app.get('/authRedirect', (req, res) => {
-  yf.authCallback(
-    req, refreshToken
-  )
-  res.redirect('/');
+  yf.authCallback(req, refreshToken)
+//  cookies.set('yf.userToken', yf.yahooUserToken, { signed: true })
+//  cookies.set('yf.refreshToken', yf.yahooRefreshToken, { signed: true })
+//  cookies.set('yf.tokenExp', yf.yahooRefreshToken, { signed: true, expires:3600000 + Date.now() })
+
+  res.redirect('/returning.html');
   res.end();
 })
 
