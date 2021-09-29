@@ -6,10 +6,6 @@ var Cookies = require('cookies');
 var dt = require('date-and-time');
 var cookieKeys = ['bfl fo life'];
 
-const httpsOptions = {
-  key: fs.readFileSync('/Users/krobinson/key.pem'),
-  cert: fs.readFileSync('/Users/krobinson/cert.pem')
-}
 
 
 const express = require('express');
@@ -17,12 +13,16 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config');
 
+const httpsOptions = {
+  key: fs.readFileSync(config.sslKey),
+  cert: fs.readFileSync(config.sslCert)
+}
 const app = express();
 
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use('/static',express.static('public'));
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.engine('html', require('ejs').renderFile);
@@ -36,8 +36,8 @@ function refreshToken(paramA, paramB){
 const YahooFantasy = require('yahoo-fantasy');
 
 const yf = new YahooFantasy(
-  config.yahoo.app_key,
-  config.yahoo.app_secret,
+  config.yahooAppKey,
+  config.ahooAppSecret,
   refreshToken,
   'https://127.0.0.1:4000/authRedirect/'
 )
@@ -59,17 +59,22 @@ app.get('/', (req, res) => {
   res.render('index.html' );
 });
 
-app.get('/authYahooUser', (req, res) => {
+app.get('/authYahooUser', (req, res) => { 
   yf.auth(res);
-})
-
-app.get('/authRedirect', (req, res) => {
-  yf.authCallback(
-    req, refreshToken
-  )
-  data.yahooFSResource()
-  yf.league.
-})
+ });
+// yahoo will redirect the user to the local page once all authorization is completed
+app.get('/authRedirect', (req, res) => { 
+ yf.authCallback(req, (err) =>{ 
+   if (err) { 
+     res.redirect("500.html"); 
+   } 
+ });
+ res.render('returning.html' );
+ // cookies.set('yf.userToken', yf.yahooUserToken, { signed: true })
+ // cookies.set('yf.refreshToken', yf.yahooRefreshToken, { signed: true })
+ // cookies.set('yf.tokenExp', yf.yahooRefreshToken, { signed: true, expires:3600000 + Date.now() })
+ // res.redirect('/returning.html');
+});
 
 
 app.get('/:pageName', (req, res) => {
@@ -94,7 +99,7 @@ app.use('*',(req, res, next) => {
 //      console.error(req.url);
 //      console.dir(err);
       if (err.status == 404) {
-        res.render('page-not-found');
+        res.render('404.html');
       } else {
         err.status = 500;
         res.json(err);
